@@ -134,7 +134,7 @@ typedef struct as_rec_hooks_s {
 	/**
 	 *	Get the generation value of the record.
 	 */
-	uint16_t (* gen)(const as_rec * rec);
+	uint32_t (* gen)(const as_rec * rec);
 
 	/**
 	 *	Get the record's key.
@@ -286,7 +286,7 @@ static inline uint32_t as_rec_ttl(const as_rec * rec)
  *
  *	@relatesalso as_rec
  */
-static inline uint16_t as_rec_gen(const as_rec * rec)
+static inline uint32_t as_rec_gen(const as_rec * rec)
 {
 	return as_util_hook(gen, 0, rec);
 }
