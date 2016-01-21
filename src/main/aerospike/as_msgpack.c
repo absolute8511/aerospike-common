@@ -1,5 +1,5 @@
 /* 
- * Copyright 2008-2015 Aerospike, Inc.
+ * Copyright 2008-2016 Aerospike, Inc.
  *
  * Portions may be licensed to Aerospike, Inc. under one or more contributor
  * license agreements.
@@ -946,6 +946,7 @@ int64_t as_unpack_size(as_unpacker *pk)
 
 	if ((type & 0xe0) == 0xa0) { // raw bytes with 8 bit combined header
 		int length = type & 0x1f;
+		pk->offset += length;
 		return 1 + length;
 	}
 
