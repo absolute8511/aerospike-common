@@ -12,8 +12,11 @@ O = 3
 # Make-local Compiler Flags
 CC_FLAGS = -std=gnu99 -g -Wall -fPIC -O$(O)
 CC_FLAGS += -fno-common -fno-strict-aliasing
-CC_FLAGS += -march=nocona -DMARCH_$(ARCH)
 CC_FLAGS += -D_FILE_OFFSET_BITS=64 -D_REENTRANT -D_GNU_SOURCE $(EXT_CFLAGS)
+
+ifneq ($(ARCH),$(filter $(ARCH),ppc64 ppc64le))
+CC_FLAGS += -march=nocona
+endif
 
 PREPRO_SUFFIX = .cpp
 ifeq ($(PREPRO),1)
@@ -82,6 +85,7 @@ AEROSPIKE-OBJECTS += as_nil.o
 AEROSPIKE-OBJECTS += as_pair.o
 AEROSPIKE-OBJECTS += as_password.o
 AEROSPIKE-OBJECTS += as_queue.o
+AEROSPIKE-OBJECTS += as_random.o
 AEROSPIKE-OBJECTS += as_rec.o
 AEROSPIKE-OBJECTS += as_result.o
 AEROSPIKE-OBJECTS += as_serializer.o
@@ -97,11 +101,9 @@ AEROSPIKE-OBJECTS += crypt_blowfish.o
 CITRUSLEAF-OBJECTS =
 CITRUSLEAF-OBJECTS += cf_alloc.o
 CITRUSLEAF-OBJECTS += cf_b64.o
-CITRUSLEAF-OBJECTS += cf_bits.o
 CITRUSLEAF-OBJECTS += cf_clock.o
 CITRUSLEAF-OBJECTS += cf_crypto.o
 CITRUSLEAF-OBJECTS += cf_digest.o
-CITRUSLEAF-OBJECTS += cf_hooks.o
 CITRUSLEAF-OBJECTS += cf_ll.o
 CITRUSLEAF-OBJECTS += cf_queue.o
 CITRUSLEAF-OBJECTS += cf_queue_priority.o
